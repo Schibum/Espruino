@@ -14,7 +14,18 @@ OPTIMIZEFLAGS+=-Os -std=gnu11 -fgnu89-inline -Wl,--allow-multiple-definition
 endif
 
 
-ifdef FLASH_4MB
+ifdef FLASH_1MB_NOFOTA
+ESP_FLASH_MAX       ?= 831488   # max bin file: 812KB
+ESP_FLASH_SIZE      ?= 2        # 2->1MB (1024)
+ESP_FLASH_MODE      ?= 0        # 0->QIO, 2->DIO
+ESP_FLASH_FREQ_DIV  ?= 15       # 15->80Mhz
+ET_FS               ?= 1MB      # 8Mbit (1MB) flash size in esptool flash command
+ET_FF               ?= 80m      # 80Mhz flash speed in esptool flash command
+ET_BLANK            ?= 0xFE000  # where to flash blank.bin
+ET_DEFAULTS         ?= 0xFC000  # where to flash esp_init_data_default.bin to default SDK settings
+CFLAGS              += -mforce-l32
+DEFINES             += -DFLASH_1MB_NOFOTA
+else ifdef FLASH_4MB
 ESP_FLASH_MAX       ?= 831488   # max bin file: 940KB
 ESP_FLASH_SIZE      ?= 6        # 6->4MB (1024KB+1024KB)       
 ESP_FLASH_MODE      ?= 0        # 0->QIO, 2->DIO
@@ -51,6 +62,7 @@ ET_FF               ?= 40m      # 40Mhz flash speed in esptool flash command
 ET_BLANK            ?= 0x7E000  # where to flash blank.bin
 ET_DEFAULTS         ?= 0x7C000  # where to flash esp_init_data_default.bin to default SDK settings
 endif
+
 
 FLASH_BAUD ?= 115200 # The flash baud rate
 
