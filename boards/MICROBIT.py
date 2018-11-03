@@ -20,8 +20,8 @@ info = {
  'link' : [ "https://en.wikipedia.org/wiki/Micro_Bit" ],
  'espruino_page_link' : 'MicroBit',
  'default_console' : "EV_SERIAL1",
- 'default_console_tx' : "H0", # pin 24
- 'default_console_rx' : "H1", # pin 25
+ 'default_console_tx' : "D9",
+ 'default_console_rx' : "D11",
  'default_console_baudrate' : "9600",
  'variables' : 300,
  'binary_name' : 'espruino_%v_microbit.hex',
@@ -63,78 +63,68 @@ chip = {
 };
 
 devices = {
-  'BTN1' : { 'pin' : 'D5', 'pinstate' : 'IN_PULLDOWN' }, # 'P0_17' -  Pin negated in software
-  'BTN2' : { 'pin' : 'D11', 'pinstate' : 'IN_PULLDOWN' }, # 'P0_26' -  Pin negated in software
+  # 'BTN1' : { 'pin' : 'D28', 'pinstate' : 'IN_PULLDOWN'}, # Pin negated in software
+  'BTN2' : { 'pin' : 'D18', 'pinstate' : 'IN_PULLDOWN'}, # Pin negated in software
+  'BTN3' : { 'pin' : 'D19', 'pinstate' : 'IN_PULLDOWN'}, # Pin negated in software
+  'BTN4' : { 'pin' : 'D20', 'pinstate' : 'IN_PULLDOWN'}, # Pin negated in software
+  'LED1' : { 'pin' : 'D29' }, # Pin negated in software
+  'LED2' : { 'pin' : 'D22' }, # Pin negated in software
+  'LED3' : { 'pin' : 'D23' }, # Pin negated in software
+  'LED4' : { 'pin' : 'D24' }, # Pin negated in software
+  'RX_PIN_NUMBER' : { 'pin' : 'D11'},
+  'TX_PIN_NUMBER' : { 'pin' : 'D9'},
+  'CTS_PIN_NUMBER' : { 'pin' : 'D10'},
+  'RTS_PIN_NUMBER' : { 'pin' : 'D8'},
 };
 
-# left-right, or top-bottom order
+# left-right, or top-bottom order THIS IS INCORRECT!!!!!
 board = {
-  'bottom' : [ 'D3', '','D0','','D4','D5','D6','D7','','D1','','D8','D9','D10','D11','D12','','D2','',
-               'D13','D14','D15','D16','3.3','','3.3','','3.3','D19','D20','GND','','GND','','GND' ],
-  '_hide_not_on_connectors' : True,
-  '_notes' : {
-    'D3'  : "LED Col 1",
-    'D4'  : "LED Col 2",
-    'D6'  : "LED Col 9",
-    'D7'  : "LED Col 8",
-    'D9'  : "LED Col 7",
-    'D10'  : "LED  Col 3"
-  }
+  'left' : [ 'VDD', 'VDD', 'RESET', 'VDD','5V','GND','GND','PD3','PD4','PD28','PD29','PD30','PD31'],
+  'right' : [ 'PD27', 'PD26', 'PD2', 'GND', 'PD25','PD24','PD23', 'PD22','PD20','PD19','PD18','PD17','PD16','PD15','PD14','PD13','PD12','PD11','PD10','PD9','PD8','PD7','PD6','PD5','PD21','PD1','PD0'],
 };
 board["_css"] = """
-#board {
-  width: 659px;
-  height: 562px;
-  top: 0px;
-  left : 0px;
-  background-image: url(img/MICROBIT.jpg);
-}
-#boardcontainer {
-  height: 700px;
-}
-
-#bottom {
-  top: 490px;
-  left: 52px;
-}
-
-.bottompin { width: 10px; }
 """;
 
-# Display is on:
-# real NRF pins 4,5,6,7,8,9,10,11,12 (column pull down)
-# real NRF pins 13,14,15 (row pull up)
-
 def get_pins():
-  pins = [
-   { "name":"PD0", "sortingname":"D00", "port":"D", "num":"1", "functions":{ "ADC1_IN4":0 }, "csv":{} },
-   { "name":"PD1", "sortingname":"D01", "port":"D", "num":"2", "functions":{ "ADC1_IN3":0 }, "csv":{} },
-   { "name":"PD2", "sortingname":"D02", "port":"D", "num":"3", "functions":{ "ADC1_IN2":0 }, "csv":{} },
-   { "name":"PD3", "sortingname":"D03", "port":"D", "num":"4", "functions":{ "ADC1_IN5":0 }, "csv":{} },   # LED col 1
-   { "name":"PD4", "sortingname":"D04", "port":"D", "num":"5", "functions":{}, "csv":{} },  # BTNA
-   { "name":"PD5", "sortingname":"D05", "port":"D", "num":"17", "functions":{ "ADC1_IN6":0 }, "csv":{} },   # LED col 2
-   { "name":"PD6", "sortingname":"D06", "port":"D", "num":"12", "functions":{}, "csv":{} },  # LED row 2
-   { "name":"PD7", "sortingname":"D07", "port":"D", "num":"11", "functions":{}, "csv":{} },  # LED row 1
-   { "name":"PD8", "sortingname":"D08", "port":"D", "num":"18", "functions":{}, "csv":{} },
-   { "name":"PD9", "sortingname":"D09", "port":"D", "num":"10", "functions":{}, "csv":{} },  # LED row 3
-   { "name":"PD10", "sortingname":"D10", "port":"D", "num":"6", "functions":{ "ADC1_IN7":0 }, "csv":{} },  # LED col 3
-   { "name":"PD11", "sortingname":"D11", "port":"D", "num":"26", "functions":{}, "csv":{} }, # BTNB
-   { "name":"PD12", "sortingname":"D12", "port":"D", "num":"20", "functions":{}, "csv":{} },
-   { "name":"PD13", "sortingname":"D13", "port":"D", "num":"23", "functions":{ "SPI1_SCK":0 }, "csv":{} },
-   { "name":"PD14", "sortingname":"D14", "port":"D", "num":"22", "functions":{ "SPI1_MISO":0 }, "csv":{} },
-   { "name":"PD15", "sortingname":"D15", "port":"D", "num":"21", "functions":{ "SPI1_MOSI":0 }, "csv":{} },
-   { "name":"PD16", "sortingname":"D16", "port":"D", "num":"16", "functions":{}, "csv":{} },
-   { "name":"PD17", "sortingname":"D17", "port":"D", "num":"31", "functions":{}, "csv":{} }, # FIXME 3.3v
-   { "name":"PD18", "sortingname":"D18", "port":"D", "num":"31", "functions":{}, "csv":{} }, # FIXME 3.3v
-   { "name":"PD19", "sortingname":"D19", "port":"D", "num":"0", "functions":{ "I2C1_SCL":0, "ADC1_IN0":0 }, "csv":{} },
-   { "name":"PD20", "sortingname":"D20", "port":"D", "num":"30", "functions":{ "I2C1_SDA":0 }, "csv":{} },
-   { "name":"PH0", "sortingname":"H0", "port":"D", "num":"24", "functions":{}, "csv":{} },
-   { "name":"PH1", "sortingname":"H1", "port":"D", "num":"25", "functions":{}, "csv":{} }
-  ];
-  # Make buttons negated
-  pinutils.findpin(pins, "PD5", True)["functions"]["NEGATED"]=0;
-  pinutils.findpin(pins, "PD11", True)["functions"]["NEGATED"]=0;
+  pins = pinutils.generate_pins(0,31) # 32 General Purpose I/O Pins.
+  pinutils.findpin(pins, "PD27", True)["functions"]["XL1"]=0;
+  pinutils.findpin(pins, "PD26", True)["functions"]["XL2"]=0;
+  pinutils.findpin(pins, "PD8", True)["functions"]["RTS"]=0;
+  pinutils.findpin(pins, "PD9", True)["functions"]["TXD"]=0;
+  pinutils.findpin(pins, "PD10", True)["functions"]["CTS"]=0;
+  pinutils.findpin(pins, "PD11", True)["functions"]["RXD"]=0;
+  pinutils.findpin(pins, "PD17", True)["functions"]["Button_1"]=0;
+  pinutils.findpin(pins, "PD18", True)["functions"]["Button_2"]=0;
+  pinutils.findpin(pins, "PD19", True)["functions"]["Button_3"]=0;
+  pinutils.findpin(pins, "PD20", True)["functions"]["Button_4"]=0;
+  pinutils.findpin(pins, "PD21", True)["functions"]["LED_1"]=0;
+  pinutils.findpin(pins, "PD22", True)["functions"]["LED_2"]=0;
+  pinutils.findpin(pins, "PD23", True)["functions"]["LED_3"]=0;
+  pinutils.findpin(pins, "PD24", True)["functions"]["LED_4"]=0;
+  pinutils.findpin(pins, "PD28", True)["functions"]["ADC1_IN4"]=0;
+  pinutils.findpin(pins, "PD29", True)["functions"]["ADC1_IN5"]=0;
+
+  pinutils.findpin(pins, "PD0", True)["functions"]["ADC1_IN1"]=0;
+  pinutils.findpin(pins, "PD1", True)["functions"]["ADC1_IN2"]=0;
+  pinutils.findpin(pins, "PD2", True)["functions"]["ADC1_IN3"]=0;
+#  pinutils.findpin(pins, "PD3", True)["functions"]["ADC1_IN4"]=0;
+#  pinutils.findpin(pins, "PD4", True)["functions"]["ADC1_IN5"]=0;
+  pinutils.findpin(pins, "PD5", True)["functions"]["ADC1_IN6"]=0;
+  pinutils.findpin(pins, "PD6", True)["functions"]["ADC1_IN7"]=0;
+
+  # Make buttons and LEDs negated
+  pinutils.findpin(pins, "PD17", True)["functions"]["NEGATED"]=0;
+  pinutils.findpin(pins, "PD18", True)["functions"]["NEGATED"]=0;
+  pinutils.findpin(pins, "PD19", True)["functions"]["NEGATED"]=0;
+  pinutils.findpin(pins, "PD20", True)["functions"]["NEGATED"]=0;
+  pinutils.findpin(pins, "PD21", True)["functions"]["NEGATED"]=0;
+  pinutils.findpin(pins, "PD22", True)["functions"]["NEGATED"]=0;
+  pinutils.findpin(pins, "PD23", True)["functions"]["NEGATED"]=0;
+  pinutils.findpin(pins, "PD24", True)["functions"]["NEGATED"]=0;
+
   # everything is non-5v tolerant
   for pin in pins:
     pin["functions"]["3.3"]=0;
+
+  #The boot/reset button will function as a reset button in normal operation. Pin reset on PD21 needs to be enabled on the nRF52832 device for this to work.
   return pins
