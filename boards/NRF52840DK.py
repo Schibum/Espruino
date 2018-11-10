@@ -24,7 +24,7 @@ info = {
  'default_console_tx' : "D6",
  'default_console_rx' : "D8",
  'default_console_baudrate' : "9600",
- 'variables' : 2250, # How many variables are allocated for Espruino to use. RAM will be overflowed if this number is too high and code won't compile.
+ 'variables' : 10000, # How many variables are allocated for Espruino to use. RAM will be overflowed if this number is too high and code won't compile.
 # 'bootloader' : 1,
  'binary_name' : 'espruino_%v_nrf52840.hex',
  'build' : {
@@ -65,7 +65,7 @@ chip = {
 };
 
 devices = {
-  'BTN1' : { 'pin' : 'D11', 'pinstate' : 'IN_PULLDOWN' }, # Pin negated in software
+  'BTN1' : { 'pin' : 'D28', 'pinstate' : 'IN_PULLDOWN' }, # Pin negated in software
   'BTN2' : { 'pin' : 'D12', 'pinstate' : 'IN_PULLDOWN' }, # Pin negated in software
   'BTN3' : { 'pin' : 'D24', 'pinstate' : 'IN_PULLDOWN' }, # Pin negated in software
   'BTN4' : { 'pin' : 'D25', 'pinstate' : 'IN_PULLDOWN' }, # Pin negated in software
