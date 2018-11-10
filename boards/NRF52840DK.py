@@ -33,7 +33,7 @@ info = {
      'BLUETOOTH',
      'NET',
      'GRAPHICS',
-     'NFC',
+     # 'NFC',
      'NEOPIXEL'
    ],
    'makefile' : [
